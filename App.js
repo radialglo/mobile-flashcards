@@ -1,13 +1,68 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
+import { TabNavigator, StackNavigator } from 'react-navigation'
+import DeckList from './components/DeckList'
+import AddDeck from './components/AddDeck'
+import { blue, white } from './utils/color'
+import { Constants } from 'expo'
+import { Ionicons } from '@expo/vector-icons'
+
+function FlashCardsStatusBar ({backgroundColor, ...props}) {
+    return (
+        <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+            <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+        </View>
+    )
+}
+
+const Tabs = TabNavigator({
+    Decks: {
+        screen: DeckList,
+        navigationOptions: {
+            tabBarLabel: 'Decks',
+            tabBarIcon: ({ tintColor }) => <Ionicons name='ios-paper' size={30} color={tintColor}/>
+        }
+    },
+    NewDeck: {
+        screen: AddDeck,
+        navigationOptions: {
+            tabBarLabel: 'New Deck',
+            tabBarIcon: ({ tintColor }) => <Ionicons name={'ios-add'} size={30} color={tintColor}/>
+        }
+    }
+
+}, {
+    navigationOptions: {
+        header: null
+    },
+    tabBarOptions: {
+        activeTintColor: Platform.OS === 'ios' ? blue : white,
+        style: {
+            height: 56,
+            backgroundColor: Platform.OS === 'ios' ? white : blue,
+            shadowColor: 'rgba(0, 0, 0, 0.24)',
+            shadowOffset: {
+                width: 0,
+                height: 3,
+            },
+            shadowRadius: 6,
+            shadowOpacity: 1
+        }
+    }
+});
+
+const MainNavigator = StackNavigator({
+    Home: {
+        screen: Tabs
+    }
+})
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <FlashCardsStatusBar backgroundColor={blue} barStyle='light-content'/>
+        <MainNavigator/>
       </View>
     );
   }
@@ -16,8 +71,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
