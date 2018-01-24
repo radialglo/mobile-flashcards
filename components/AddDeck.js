@@ -1,13 +1,29 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import { blue, white } from '../utils/color'
+import { connect } from 'react-redux'
+import { addDeck} from '../actions';
+
 class AddDeck extends Component {
+    state = {
+        title: '',
+    }
+
+    handleInput = (text) => {
+        this.setState({
+            title: text,
+        })
+
+    }
+    handlePress = () => {
+        this.props.addDeck(this.state.title);
+    }
     render () {
         return (
             <View style={styles.container}>
                 <Text style={styles.header}> What is the title of your new deck?</Text>
-                <TextInput placeholder={'Deck Title'} style={styles.textInput}/>
-                <TouchableOpacity style={styles.btn} onPress={() => {}}>
+                <TextInput placeholder={'Deck Title'} style={styles.textInput} value={this.state.title} onChangeText={this.handleInput}/>
+                <TouchableOpacity style={styles.btn}  onPress={this.handlePress}>
                     <Text style={styles.btnText}>Submit</Text>
                 </TouchableOpacity>
             </View>
@@ -47,4 +63,9 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AddDeck
+function mapDispatchToProps (dispatch) {
+    return {
+        addDeck: (deckTitle) => dispatch(addDeck(deckTitle))
+    }
+}
+export default connect()(AddDeck)

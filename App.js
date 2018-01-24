@@ -6,6 +6,9 @@ import AddDeck from './components/AddDeck'
 import { blue, white } from './utils/color'
 import { Constants } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+import { createStore } from 'redux'
 
 function FlashCardsStatusBar ({backgroundColor, ...props}) {
     return (
@@ -60,10 +63,12 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <FlashCardsStatusBar backgroundColor={blue} barStyle='light-content'/>
-        <MainNavigator/>
-      </View>
+      <Provider store={createStore(reducer)}>
+          <View style={styles.container}>
+            <FlashCardsStatusBar backgroundColor={blue} barStyle='light-content'/>
+            <MainNavigator/>
+          </View>
+      </Provider>
     );
   }
 }
