@@ -68,4 +68,5 @@ function mapDispatchToProps (dispatch) {
         addDeck: (deckTitle) => dispatch(addDeck(deckTitle))
     }
 }
-export default connect()(AddDeck)
+
+export default connect(null, mapDispatchToProps)(AddDeck)

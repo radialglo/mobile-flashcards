@@ -1,15 +1,16 @@
 import { ADD_DECK, ADD_CARD_TO_DECK} from '../actions';
 
-function decks (state = {}, action) {
+function decks (state = { deck: { byIds: {}, allIds: []} }, action) {
     let deck;
     switch (action.type) {
         case ADD_DECK:
             deck = action.deck;
+
             return {
                 deck: {
                     byIds: {
                         ...state.deck.byIds,
-                        [stack.deck.id]: {
+                        [deck.id]: {
                             id: deck.id,
                             title: deck.title,
                             questions: [],

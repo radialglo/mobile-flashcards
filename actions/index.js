@@ -5,8 +5,10 @@ import uuidv1 from 'uuid/v1';
 export function addDeck(deckTitle) {
     return {
         type: ADD_DECK,
-        id: uuidv1(),
-        title: deckTitle,
+        deck: {
+            id: uuidv1(),
+            title: deckTitle,
+        }
     };
 }
 
