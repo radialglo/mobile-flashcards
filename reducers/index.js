@@ -1,32 +1,32 @@
 import { ADD_DECK, ADD_CARD_TO_DECK} from '../actions';
 
-function decks (state = { deck: { byIds: {}, allIds: []} }, action) {
+function decks (state = { decks: { byIds: {}, allIds: []} }, action) {
     let deck;
     switch (action.type) {
         case ADD_DECK:
             deck = action.deck;
 
             return {
-                deck: {
+                decks: {
                     byIds: {
-                        ...state.deck.byIds,
+                        ...state.decks.byIds,
                         [deck.id]: {
                             id: deck.id,
                             title: deck.title,
                             questions: [],
                         }
                     },
-                    allIds: [... state.deck.allIds, deck.id]
+                    allIds: [... state.decks.allIds, deck.id]
                 }
             }
         case ADD_CARD_TO_DECK:
             const { deckId, question, answer } = action.card;
-            deck = state.deck.byIds[deckId];
+            deck = state.decks.byIds[deckId];
             return {
-                ...state.deck,
+                ...state.decks,
                 deck: {
                     byIds: {
-                        ...state.deck.byIds,
+                        ...state.decks.byIds,
                         [deckId]: {
                             ...deck,
                             questions: [
