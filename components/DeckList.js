@@ -23,6 +23,7 @@ class DeckList extends Component {
                     {
                         deckId: key,
                         title: title,
+                        questionCount: questionCount,
                     }
                 )}
             >
