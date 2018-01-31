@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
-import {FlatList, View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { FlatList, View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
+import { loadDecks } from '../actions';
 
 
 class DeckList extends Component {
+    componentDidMount ()  {
+        this.props.loadDecks()
+    }
+
     renderDeckInfo = ({item}) => {
         const {
             title,
@@ -63,6 +68,12 @@ function mapStateToProps ({decks}) {
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        loadDecks: () =>  dispatch(loadDecks())
+    }
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -85,4 +96,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default connect(mapStateToProps)(DeckList)
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)

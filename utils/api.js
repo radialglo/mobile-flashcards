@@ -35,7 +35,7 @@ export const saveDeckTitle = (deckTitle) => {
 
     return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
         [deckId]: deck
-    }).then(() => deck)
+    })).then(() => deck)
 }
 
 /**
@@ -58,6 +58,6 @@ export const addCardToDeck = (deckId, {question, answer}) => {
         }
         return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
             [deckId]: newDeck
-        }.then(() => newDeck);
+        })).then(() => newDeck);
     })
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import { blue, white } from '../utils/color'
 import { connect } from 'react-redux'
-import { addDeck} from '../actions';
+import { addDeck } from '../actions'
 
 class AddDeck extends Component {
     state = {

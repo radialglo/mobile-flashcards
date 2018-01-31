@@ -9,7 +9,10 @@ import { Constants } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import { createLogger } from 'redux-logger'
+import thunk from 'redux-thunk'
 
 
 function FlashCardsStatusBar ({backgroundColor, ...props}) {
@@ -76,7 +79,10 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(
           reducer,
-          window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+          composeEnhancers(
+              applyMiddleware(createLogger({})),
+              applyMiddleware(thunk)
+          )
       )}>
           <View style={styles.container}>
             <FlashCardsStatusBar backgroundColor={blue} barStyle='light-content'/>

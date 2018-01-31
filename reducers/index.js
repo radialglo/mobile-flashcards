@@ -1,4 +1,4 @@
-import { ADD_DECK, ADD_CARD_TO_DECK} from '../actions';
+import { ADD_DECK, ADD_CARD_TO_DECK, DECKS_LOADED } from '../actions';
 
 function decks (state = { decks: { byIds: {}, allIds: []} }, action) {
     let deck;
@@ -24,7 +24,7 @@ function decks (state = { decks: { byIds: {}, allIds: []} }, action) {
             deck = state.decks.byIds[deckId];
             return {
                 ...state.decks,
-                deck: {
+                decks: {
                     byIds: {
                         ...state.decks.byIds,
                         [deckId]: {
@@ -39,6 +39,13 @@ function decks (state = { decks: { byIds: {}, allIds: []} }, action) {
                         }
 
                     }
+                }
+            }
+        case DECKS_LOADED:
+            return {
+                decks: {
+                    byIds: action.decks,
+                    allIds: Object.keys(action.decks)
                 }
             }
         default:
