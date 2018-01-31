@@ -17,6 +17,11 @@ class AddDeck extends Component {
     }
     handlePress = () => {
         this.props.addDeck(this.state.title);
+        this.setState({
+            title: ''
+        })
+        // TODO save to storage
+        this.props.navigation.navigate('Decks');
     }
     render () {
         return (

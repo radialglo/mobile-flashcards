@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import DeckDetail from './components/DeckDetail'
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
 import { blue, white } from './utils/color'
@@ -9,6 +10,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { createStore } from 'redux'
+
 
 function FlashCardsStatusBar ({backgroundColor, ...props}) {
     return (
@@ -57,6 +59,15 @@ const Tabs = TabNavigator({
 const MainNavigator = StackNavigator({
     Home: {
         screen: Tabs
+    },
+    DeckDetail: {
+        screen: DeckDetail,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: blue,
+            }
+        }
     }
 })
 
