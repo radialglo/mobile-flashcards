@@ -48,7 +48,7 @@ export const addCardToDeck = (deckId, {question, answer}) => {
         const newDeck = {
             ...deck,
             questions: [
-                ...questions,
+                ...deck.questions,
                 {
                     question: question,
                     answer: answer,

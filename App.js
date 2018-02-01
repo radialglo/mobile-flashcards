@@ -4,6 +4,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import DeckDetail from './components/DeckDetail'
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
+import AddCardToDeck from './components/AddCardToDeck'
 import { blue, white } from './utils/color'
 import { Constants } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
@@ -65,6 +66,15 @@ const MainNavigator = StackNavigator({
     },
     DeckDetail: {
         screen: DeckDetail,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: blue,
+            }
+        }
+    },
+    AddCardToDeck: {
+        screen: AddCardToDeck,
         navigationOptions: {
             headerTintColor: white,
             headerStyle: {

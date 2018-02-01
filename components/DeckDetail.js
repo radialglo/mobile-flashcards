@@ -10,6 +10,13 @@ class DeckDetail extends Component {
         }
     }
 
+    navigateToAddCard = () => {
+        this.props.navigation.navigate(
+            'AddCardToDeck',
+            {deckId: this.props.deckId}
+        )
+    }
+
     render() {
         const {
             title,
@@ -24,7 +31,7 @@ class DeckDetail extends Component {
                 </View>
 
                 <View style={{flex: 0.5}}>
-                    <TouchableOpacity style={styles["btn--secondary"]}  onPress={() => {}}>
+                    <TouchableOpacity style={styles["btn--secondary"]}  onPress={this.navigateToAddCard}>
                         <Text style={styles["btnText--secondary"]}>Add Card</Text>
                     </TouchableOpacity>
 
@@ -47,6 +54,7 @@ function mapStateToProps({decks}, {navigation}) {
 
     return {
         title: deck.title,
+        deckId: deckId,
         questionCount: deck.questions.length
     }
 }
@@ -86,7 +94,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 4,
         borderColor: blue,
-        color: blue,
     },
     ["btnText--secondary"]: {
         color: blue,

@@ -1,4 +1,4 @@
-import { ADD_DECK, ADD_CARD_TO_DECK, DECKS_LOADED } from '../actions';
+import {ADD_DECK, DECKS_LOADED, UPDATE_DECK} from '../actions';
 
 function decks (state = { decks: { byIds: {}, allIds: []} }, action) {
     let deck;
@@ -19,25 +19,15 @@ function decks (state = { decks: { byIds: {}, allIds: []} }, action) {
                     allIds: [... state.decks.allIds, deck.id]
                 }
             }
-        case ADD_CARD_TO_DECK:
-            const { deckId, question, answer } = action.card;
-            deck = state.decks.byIds[deckId];
+        case UPDATE_DECK:
+            const { id } = action.deck;
+            deck = state.decks.byIds[id];
             return {
-                ...state.decks,
                 decks: {
+                    ...state.decks,
                     byIds: {
                         ...state.decks.byIds,
-                        [deckId]: {
-                            ...deck,
-                            questions: [
-                                ...deck.questions, {
-                                    question: question,
-                                    answer: answer,
-                                }
-
-                            ]
-                        }
-
+                        [id]: action.deck
                     }
                 }
             }

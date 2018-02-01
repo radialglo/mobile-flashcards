@@ -1,4 +1,4 @@
-export const ADD_CARD_TO_DECK = 'ADD_SLIDE_TO_DECK';
+export const UPDATE_DECK = 'UPDATE_DECK';
 export const ADD_DECK = 'ADD_DECK'
 export const DECKS_LOADED = 'DECKS_LOADED'
 import * as API  from '../utils/api';
@@ -26,9 +26,20 @@ export function addDeck(deckTitle) {
     }
 }
 
-export function addCard(deckId) {
-    return {
-        type: ADD_CARD_TO_DECK
-    };
+export function addCard(deckId, question, answer) {
+
+    return function (dispatch) {
+        const card = {
+            question,
+            answer,
+        }
+
+        API.addCardToDeck(deckId, card).then((deck) => {
+            dispatch({
+                type: UPDATE_DECK,
+                deck
+            });
+        });
+    }
 
 }
