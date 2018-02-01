@@ -17,6 +17,13 @@ class DeckDetail extends Component {
         )
     }
 
+    navigateQuiz = () => {
+        this.props.navigation.navigate(
+            'Quiz',
+            {deckId: this.props.deckId}
+        )
+    }
+
     render() {
         const {
             title,
@@ -35,7 +42,7 @@ class DeckDetail extends Component {
                         <Text style={styles["btnText--secondary"]}>Add Card</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.btn}  onPress={() => {}}>
+                    <TouchableOpacity style={styles.btn}  onPress={this.navigateQuiz}>
                         <Text style={styles.btnText}>Start Quiz</Text>
                     </TouchableOpacity>
                 </View>

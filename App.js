@@ -5,6 +5,7 @@ import DeckDetail from './components/DeckDetail'
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
 import AddCardToDeck from './components/AddCardToDeck'
+import Quiz from './components/Quiz'
 import { blue, white } from './utils/color'
 import { Constants } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
@@ -60,6 +61,13 @@ const Tabs = TabNavigator({
     }
 });
 
+const stackNavigationOptions =  {
+    headerTintColor: white,
+        headerStyle: {
+        backgroundColor: blue,
+    }
+}
+
 const MainNavigator = StackNavigator({
     Home: {
         screen: Tabs
@@ -67,20 +75,21 @@ const MainNavigator = StackNavigator({
     DeckDetail: {
         screen: DeckDetail,
         navigationOptions: {
-            headerTintColor: white,
-            headerStyle: {
-                backgroundColor: blue,
-            }
+            ...stackNavigationOptions
         }
     },
     AddCardToDeck: {
         screen: AddCardToDeck,
         navigationOptions: {
-            headerTintColor: white,
-            headerStyle: {
-                backgroundColor: blue,
-            }
+            ...stackNavigationOptions
         }
+    },
+    Quiz: {
+        screen: Quiz,
+        navigationOptions: {
+            ...stackNavigationOptions
+        }
+
     }
 })
 
