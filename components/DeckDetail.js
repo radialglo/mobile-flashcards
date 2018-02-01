@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import {blue, white} from '../utils/color'
+import TextButton from './TextButton'
 
 class DeckDetail extends Component {
     static navigationOptions =  ({navigation}) => {
@@ -18,10 +19,12 @@ class DeckDetail extends Component {
     }
 
     navigateQuiz = () => {
-        this.props.navigation.navigate(
-            'Quiz',
-            {deckId: this.props.deckId}
-        )
+        if (this.props.questionCount > 0) {
+            this.props.navigation.navigate(
+                'Quiz',
+                {deckId: this.props.deckId}
+            )
+        }
     }
 
     render() {
@@ -38,13 +41,17 @@ class DeckDetail extends Component {
                 </View>
 
                 <View style={{flex: 0.5}}>
-                    <TouchableOpacity style={styles["btn--secondary"]}  onPress={this.navigateToAddCard}>
-                        <Text style={styles["btnText--secondary"]}>Add Card</Text>
-                    </TouchableOpacity>
+                    <TextButton
+                        btnStyle={styles.whiteBtn}
+                        btnTextStyle={styles.whiteBtnText}
+                        onPress={this.navigateToAddCard}
+                    >
+                        Add Card
+                    </TextButton>
 
-                    <TouchableOpacity style={styles.btn}  onPress={this.navigateQuiz}>
-                        <Text style={styles.btnText}>Start Quiz</Text>
-                    </TouchableOpacity>
+                    <TextButton btnStyle={styles.btn} onPress={this.navigateQuiz}>
+                        Start Quiz
+                    </TextButton>
                 </View>
             </View>
         )
@@ -82,32 +89,18 @@ const styles = StyleSheet.create({
         color: '#999'
     },
     btn: {
-        backgroundColor: blue,
         marginTop: 15,
-        borderWidth: 2,
-        borderRadius: 4,
-        borderColor: blue,
     },
-    btnText: {
-        fontSize: 22,
-        padding: 10,
-        paddingLeft: 15,
-        paddingRight: 15,
-        color: white,
-    },
-    ["btn--secondary"]: {
+    whiteBtn: {
         backgroundColor: white,
         marginTop: 15,
         borderWidth: 2,
         borderRadius: 4,
         borderColor: blue,
     },
-    ["btnText--secondary"]: {
+    whiteBtnText: {
         color: blue,
-        fontSize: 22,
-        padding: 10,
-        paddingLeft: 15,
-        paddingRight: 15,
+
     }
 })
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
-import { blue, white } from '../utils/color'
+import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
+import TextButton from './TextButton'
 
 class AddDeck extends Component {
     state = {
@@ -16,23 +16,22 @@ class AddDeck extends Component {
 
     }
     handlePress = () => {
-
-        this.setState((prevState) => {
-            this.props.addDeck(prevState.title);
-            return {
-                title: ''
-            }
-        })
-        this.props.navigation.navigate('Decks');
+        if (this.state.title.length) {
+            this.setState((prevState) => {
+                this.props.addDeck(prevState.title);
+                return {
+                    title: ''
+                }
+            })
+            this.props.navigation.navigate('Decks');
+        }
     }
     render () {
         return (
             <View style={styles.container}>
                 <Text style={styles.header}> What is the title of your new deck?</Text>
                 <TextInput placeholder={'Deck Title'} style={styles.textInput} value={this.state.title} onChangeText={this.handleInput}/>
-                <TouchableOpacity style={styles.btn}  onPress={this.handlePress}>
-                    <Text style={styles.btnText}>Submit</Text>
-                </TouchableOpacity>
+                <TextButton  onPress={this.handlePress}>Submit</TextButton>
             </View>
         )
     }
@@ -56,20 +55,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: "100%",
         padding: 5,
-    },
-    btn: {
-        backgroundColor: blue,
-        marginTop: 15,
-        borderWidth: 2,
-        borderRadius: 4,
-        borderColor: blue,
-    },
-    btnText: {
-        color: white,
-        fontSize: 22,
-        padding: 10,
-        paddingLeft: 15,
-        paddingRight: 15,
+        marginBottom: 15,
     }
 })
 

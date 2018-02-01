@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { blue, white } from '../utils/color';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { addCard } from '../actions'
+import { addCard } from '../actions';
+import TextButton from './TextButton'
 
 class AddCardToDeck extends Component {
     static navigationOptions() {
@@ -42,22 +42,24 @@ class AddCardToDeck extends Component {
     }
 
     handleSubmit = () => {
-        this.setState((prevState) => {
-            this.props.addCard(
-                this.props.navigation.state.params.deckId,
-                prevState.input.question,
-                prevState.input.answer,
-            )
-            return {
-                input: {
-                    question: '',
-                    answer: '',
+        if (this.state.input.question.length && this.state.input.answer.length) {
+            this.setState((prevState) => {
+                this.props.addCard(
+                    this.props.navigation.state.params.deckId,
+                    prevState.input.question,
+                    prevState.input.answer,
+                )
+                return {
+                    input: {
+                        question: '',
+                        answer: '',
+                    }
                 }
-            }
-        });
+            });
 
-        // navigate back to deck detail
-        this.props.navigation.goBack()
+            // navigate back to deck detail
+            this.props.navigation.goBack()
+        }
     }
 
 
@@ -67,9 +69,9 @@ class AddCardToDeck extends Component {
             <View style={styles.container}>
                 <TextInput placeholder={'Question'} style={styles.textInput} value={this.state.input.question} onChangeText={this.handleQuestionInput}/>
                 <TextInput placeholder={'Answer'} style={styles.textInput} value={this.state.input.answer} onChangeText={this.handleAnswerInput}/>
-                <TouchableOpacity style={styles.btn} onPress={this.handleSubmit}>
-                    <Text style={styles.btnText}>Submit</Text>
-                </TouchableOpacity>
+                <TextButton btnStyle={styles.btn} onPress={this.handleSubmit}>
+                    Submit
+                </TextButton>
             </View>
         )
 
@@ -93,18 +95,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     btn: {
-        backgroundColor: blue,
         marginTop: 15,
-        borderWidth: 2,
-        borderRadius: 4,
-        borderColor: blue,
-    },
-    btnText: {
-        color: white,
-        fontSize: 22,
-        padding: 10,
-        paddingLeft: 15,
-        paddingRight: 15,
     }
 })
 

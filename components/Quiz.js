@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
-import { green, red, blue } from '../utils/color'
+import { green, red, blue, white } from '../utils/color'
 
 
 class Quiz extends Component {
@@ -16,6 +16,18 @@ class Quiz extends Component {
         cardIndex: 0,
         showAnswer: false,
         numCorrect: 0,
+    }
+
+    navigateToDeck = () => {
+        this.props.navigation.goBack()
+    }
+
+    restartQuiz = () => {
+        this.setState( {
+            cardIndex: 0,
+            showAnswer: false,
+            numCorrect: 0,
+        });
     }
 
     toggleAnswer = () => {
@@ -42,6 +54,7 @@ class Quiz extends Component {
         this.setState((prevState) => {
             return {
                 cardIndex: prevState.cardIndex + 1,
+                showAnswer: false,
             }
         })
     }
@@ -67,7 +80,29 @@ class Quiz extends Component {
 
         if (this.isFinished()) {
             return (
-                <View><Text>Done</Text></View>
+                <View style={styles.container}>
+                    <View style={{flex: 2, justifyContent: 'center'}}>
+                        <Text style={styles.score}>
+                            {this.state.numCorrect} of {this.props.cards.length} correct
+                        </Text>
+                    </View>
+                    <View style={{flex: 1}}>
+                        <TextButton
+                            btnStyle={[styles.btnShared, styles.restartBtn]}
+                            btnTextStyle={[styles.finishedBtnText, styles.restartBtnText]}
+                            onPress={this.restartQuiz}
+                        >
+                            Restart Quiz
+                        </TextButton>
+                        <TextButton
+                            btnStyle={styles.btnShared}
+                            btnTextStyle={styles.finishedBtnText}
+                            onPress={this.navigateToDeck}
+                        >
+                            Back To Deck
+                        </TextButton>
+                    </View>
+                </View>
             )
         } else {
             return (
@@ -119,7 +154,7 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: white,
     },
     content: {
         fontSize: 50,
@@ -145,6 +180,21 @@ const styles = StyleSheet.create({
     toggleText: {
         color: blue,
         textAlign: 'center',
+    },
+    restartBtn: {
+        backgroundColor: white,
+        marginBottom: 15,
+    },
+    restartBtnText: {
+        color: blue,
+    },
+    finishedBtnText: {
+        textAlign: 'center',
+        fontSize: 15,
+    },
+    score: {
+        fontSize: 30,
+        fontWeight: 'bold',
     }
 });
 
