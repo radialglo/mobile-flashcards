@@ -15,7 +15,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
-
+import { setLocalNotification} from './utils/helpers';
 
 function FlashCardsStatusBar ({backgroundColor, ...props}) {
     return (
@@ -94,22 +94,26 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <Provider store={createStore(
-          reducer,
-          composeEnhancers(
-              applyMiddleware(createLogger({})),
-              applyMiddleware(thunk)
-          )
-      )}>
-          <View style={styles.container}>
-            <FlashCardsStatusBar backgroundColor={blue} barStyle='light-content'/>
-            <MainNavigator/>
-          </View>
-      </Provider>
-    );
-  }
+    componentDidMount() {
+        setLocalNotification()
+    }
+
+    render() {
+        return (
+          <Provider store={createStore(
+              reducer,
+              composeEnhancers(
+                  applyMiddleware(createLogger({})),
+                  applyMiddleware(thunk)
+              )
+          )}>
+              <View style={styles.container}>
+                <FlashCardsStatusBar backgroundColor={blue} barStyle='light-content'/>
+                <MainNavigator/>
+              </View>
+          </Provider>
+        );
+    }
 }
 
 const styles = StyleSheet.create({

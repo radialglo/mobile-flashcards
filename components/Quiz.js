@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
 import { green, red, blue, white } from '../utils/color'
+import { setLocalNotification, clearLocalNotifications} from '../utils/helpers';
 
 
 class Quiz extends Component {
@@ -79,6 +80,8 @@ class Quiz extends Component {
     render() {
 
         if (this.isFinished()) {
+            clearLocalNotifications()
+                .then(setLocalNotification())
             return (
                 <View style={styles.container}>
                     <View style={{flex: 2, justifyContent: 'center'}}>
