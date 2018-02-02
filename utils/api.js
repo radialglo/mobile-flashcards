@@ -30,6 +30,7 @@ export const saveDeckTitle = (deckTitle) => {
     const deck = {
         id: deckId,
         title: deckTitle,
+        timeCreated: Date.now(),
         questions: [],
     }
 

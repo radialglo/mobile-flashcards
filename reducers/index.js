@@ -13,6 +13,7 @@ function decks (state = { decks: { byIds: {}, allIds: []} }, action) {
                         [deck.id]: {
                             id: deck.id,
                             title: deck.title,
+                            timeCreated: deck.timeCreated,
                             questions: [],
                         }
                     },
@@ -35,7 +36,12 @@ function decks (state = { decks: { byIds: {}, allIds: []} }, action) {
             return {
                 decks: {
                     byIds: action.decks,
-                    allIds: Object.keys(action.decks)
+                    // sort decks by newest first
+                    allIds: Object.values(action.decks).sort(
+                        (deckA, deckB) => {
+                            return new Date(deckA.timeCreated) - new Date(deckB.timeCreated)
+                        }
+                    ).map((deck) => deck.id)
                 }
             }
         default:
