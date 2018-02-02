@@ -18,7 +18,7 @@ class AddDeck extends Component {
     handlePress = () => {
         if (this.state.title.length) {
             this.setState((prevState) => {
-                this.props.addDeck(prevState.title, (deck) => {
+                this.props.addDeck(prevState.title).then(deck => {
                     this.props.navigation.navigate(
                         'DeckDetail', {
                             deckId: deck.id,
@@ -74,10 +74,4 @@ function mapStateToProps ({ decks }) {
 
 }
 
-function mapDispatchToProps (dispatch) {
-    return {
-        addDeck: (deckTitle, cb) => dispatch(addDeck(deckTitle)).then((deck) => cb(deck))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddDeck)
+export default connect(mapStateToProps, { addDeck })(AddDeck)
