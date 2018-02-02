@@ -35,4 +35,4 @@ to start the application in an iOS simulator.
 ### Quiz View
 ![Quiz View](https://raw.github.com/radialglo/mobile-flashcards/master/img/quiz_view.png)
 ### Quiz Completion
-![Quiz Completion](https://raw.github.com/radialglo/mobile-flashcards/master/img/quiz_completion.png)
+![Quiz Completion](https://raw.github.com/radialglo/mobile-flashcards/master/img/quiz_completion_view.png)
