@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { FlatList, View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 import { loadDecks } from '../actions';
+import { white, gray, lightGray } from '../utils/color'
 
 
 class DeckList extends Component {
@@ -81,19 +82,19 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: white,
     },
     header: {
         fontSize: 22,
         marginBottom: 15,
     },
     count: {
-        color: '#999'
+        color: gray
     },
     separator: {
         height: 1,
         width: "100%",
-        backgroundColor: "#CED0CE",
+        backgroundColor: lightGray,
     },
 })
 

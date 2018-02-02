@@ -17,11 +17,13 @@ export function loadDecks() {
 
 export function addDeck(deckTitle) {
     return function(dispatch) {
-        API.saveDeckTitle(deckTitle).then(deck => {
+        return API.saveDeckTitle(deckTitle).then(deck => {
             dispatch({
                 type: ADD_DECK,
                 deck: deck
             })
+
+            return deck
         })
     }
 }
@@ -39,6 +41,7 @@ export function addCard(deckId, question, answer) {
                 type: UPDATE_DECK,
                 deck
             });
+
         });
     }
 

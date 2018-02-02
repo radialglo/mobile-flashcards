@@ -18,12 +18,20 @@ class AddDeck extends Component {
     handlePress = () => {
         if (this.state.title.length) {
             this.setState((prevState) => {
-                this.props.addDeck(prevState.title);
+                this.props.addDeck(prevState.title, (deck) => {
+                    this.props.navigation.navigate(
+                        'DeckDetail', {
+                            deckId: deck.id,
+                            title: deck.title,
+                            questionCount: deck.questions.length,
+                        }
+                    );
+                });
+
                 return {
                     title: ''
                 }
             })
-            this.props.navigation.navigate('Decks');
         }
     }
     render () {
@@ -59,10 +67,17 @@ const styles = StyleSheet.create({
     }
 })
 
+function mapStateToProps ({ decks }) {
+    return {
+        newlyAddedDeck: decks.allIds.length ? decks.byIds[decks.allIds[decks.allIds.length - 1]]: null
+    }
+
+}
+
 function mapDispatchToProps (dispatch) {
     return {
-        addDeck: (deckTitle) => dispatch(addDeck(deckTitle))
+        addDeck: (deckTitle, cb) => dispatch(addDeck(deckTitle)).then((deck) => cb(deck))
     }
 }
 
-export default connect(null, mapDispatchToProps)(AddDeck)
+export default connect(mapStateToProps, mapDispatchToProps)(AddDeck)

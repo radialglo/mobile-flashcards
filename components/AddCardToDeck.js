@@ -99,10 +99,4 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapDispatchToProps(dispatch) {
-    return {
-        addCard(deckId, question, answer) { return dispatch(addCard(deckId, question, answer)) }
-    }
-}
-
-export default connect(null, mapDispatchToProps)(AddCardToDeck)
+export default connect(null, { addCard })(AddCardToDeck)
