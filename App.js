@@ -16,6 +16,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 import { setLocalNotification} from './utils/helpers';
+import MainNavigator from './components/MainNavigator'
 
 function FlashCardsStatusBar ({backgroundColor, ...props}) {
     return (
@@ -24,74 +25,6 @@ function FlashCardsStatusBar ({backgroundColor, ...props}) {
         </View>
     )
 }
-
-const Tabs = TabNavigator({
-    Decks: {
-        screen: DeckList,
-        navigationOptions: {
-            tabBarLabel: 'Decks',
-            tabBarIcon: ({ tintColor }) => <Ionicons name='ios-paper' size={30} color={tintColor}/>
-        }
-    },
-    NewDeck: {
-        screen: AddDeck,
-        navigationOptions: {
-            tabBarLabel: 'New Deck',
-            tabBarIcon: ({ tintColor }) => <Ionicons name={'ios-add'} size={30} color={tintColor}/>
-        }
-    }
-
-}, {
-    navigationOptions: {
-        header: null
-    },
-    tabBarOptions: {
-        activeTintColor: Platform.OS === 'ios' ? blue : white,
-        style: {
-            height: 56,
-            backgroundColor: Platform.OS === 'ios' ? white : blue,
-            shadowColor: 'rgba(0, 0, 0, 0.24)',
-            shadowOffset: {
-                width: 0,
-                height: 3,
-            },
-            shadowRadius: 6,
-            shadowOpacity: 1
-        }
-    }
-});
-
-const stackNavigationOptions =  {
-    headerTintColor: white,
-        headerStyle: {
-        backgroundColor: blue,
-    }
-}
-
-const MainNavigator = StackNavigator({
-    Home: {
-        screen: Tabs
-    },
-    DeckDetail: {
-        screen: DeckDetail,
-        navigationOptions: {
-            ...stackNavigationOptions
-        }
-    },
-    AddCardToDeck: {
-        screen: AddCardToDeck,
-        navigationOptions: {
-            ...stackNavigationOptions
-        }
-    },
-    Quiz: {
-        screen: Quiz,
-        navigationOptions: {
-            ...stackNavigationOptions
-        }
-
-    }
-})
 
 export default class App extends React.Component {
     componentDidMount() {
